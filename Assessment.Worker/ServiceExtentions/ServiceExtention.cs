@@ -33,7 +33,7 @@ namespace Assessment.Worker.ServiceExtentions
 
                 q.AddTrigger(q => {
                     q.WithIdentity($"ReservationCheck-trigger");
-                    q.WithCronSchedule("0 0/5 * 1/1 * ? *");
+                    q.WithCronSchedule("0 0 12 * * ?");
                     q.ForJob(jobKey);
                     q.WithDescription("This worker service checks for all reserved books yet to be collected after 24 hours");
                 });

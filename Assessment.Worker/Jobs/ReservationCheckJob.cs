@@ -37,7 +37,7 @@ namespace Assessment.Worker.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var records = (await _bookReservationQueryRepo.GetAllAsync(x => !x.IsReturned && x.ExpectedDateOfReturn > DateTime.UtcNow)).OrderByDescending(x=>x.DateCreated).ToList();
+            var records = (await _bookReservationQueryRepo.GetAllAsync(x => !x.IsReturned && x.ExpectedDateOfReturn < DateTime.UtcNow)).OrderByDescending(x=>x.DateCreated).ToList();
             var books = await _bookQueryRepo.GetAllAsync(x => records.Select(x => x.BookId).Contains(x.Id));
             foreach (var record in records)
             {
