@@ -164,58 +164,6 @@ namespace Assessment.Application.Implementation
             return Result<BookViewModel>.Success(bookResponse);
         }
 
-        public async Task<Result<int>> ReservationNotification(BookReservationViewModel entity)
-        {
-            var validatorResult = await _bookReservationValidator.ValidateAsync(entity);
-            if (!validatorResult.IsValid)
-            {
-                return Result<int>.Failed(_mapper.Map<List<Error>>(validatorResult.Errors));
-            }
-
-            var book = await _bookQueryRepo.GetAsync(entity.BookId);
-            if (book is null)
-            {
-                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.NoRecordFound);
-            }
-
-            if (book.Status == Domain.Enum.ReservationStatus.Free)
-            {
-                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.BookWasNotReserved);
-            }
-
-            var model = _mapper.Map<BookReservationNotification>(entity);
-            model.CustomerId = SignedInCustomerId;
-
-            return Result<int>.Success(await _bookReservationNotificationCommandRepo.InsertAsync(model));
-        }
-
-        public async Task<Result<int>> ReserveBook(BookReservationViewModel entity)
-        {
-            var validatorResult = await _bookReservationValidator.ValidateAsync(entity);
-            if (!validatorResult.IsValid)
-            {
-                return Result<int>.Failed(_mapper.Map<List<Error>>(validatorResult.Errors));
-            }
-
-            var book = await _bookQueryRepo.GetAsync(entity.BookId);
-            if (book is null)
-            {
-                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.NoRecordFound);
-            }
-
-            if (book.Status != Domain.Enum.ReservationStatus.Free)
-            {
-                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.BookNotAvailable);
-            }
-
-            var reservation = _mapper.Map<BookReservation>(entity);
-            reservation.CustomerId = SignedInCustomerId;
-            book.Status = Domain.Enum.ReservationStatus.Reserved;
-            reservation.ExpectedDateOfReturn = DateTime.UtcNow.AddHours(_appSettings.ReservationTimeLimit);
-            await _bookCommandRepo.UpdateAsync(book);
-            return Result<int>.Success(await _bookReservationCommandRepo.InsertAsync(reservation));
-        }
-
         public async Task<PaginationResult<List<BookViewModel>>> SearchBooks(SearchFilter filter)
         {
             var books = await _bookQueryRepo.GetPaginatedAsync();
@@ -243,10 +191,10 @@ namespace Assessment.Application.Implementation
                         query = query.Where(x => x.Author.Contains(item.Value));
                         break;
                     case "datepublished":
-                        query = query.Where(x => x.DatePublished == Convert.ToDateTime(item.Value));
+                        query = query.Where(x => x.DatePublished.Date == Convert.ToDateTime(item.Value));
                         break;
                     case "datecreated":
-                        query = query.Where(x => x.DateCreated == Convert.ToDateTime(item.Value));
+                        query = query.Where(x => x.DateCreated.Date == Convert.ToDateTime(item.Value));
                         break;
                     default:
                         break;

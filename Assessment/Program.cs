@@ -4,6 +4,7 @@ using Assessment.Infrastructure.ServiceExtentions;
 using Assessment.Middleware;
 using Assessment.ServiceExtentions;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,7 @@ app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionHandler>();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseRateLimiter();
 app.MapControllers();
 
 app.Run();

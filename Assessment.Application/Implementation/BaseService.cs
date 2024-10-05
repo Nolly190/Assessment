@@ -10,6 +10,7 @@ namespace Assessment.Application.Implementation
     {
         public readonly int SignedInCustomerId;
         public readonly string SignedInCustomerEmail;
+        public readonly string SignedInCustomerName;
         public readonly IMapper _mapper;
         public readonly AppSettings _appSettings;
         public readonly IHttpContextAccessor _contextAccessor;
@@ -17,6 +18,7 @@ namespace Assessment.Application.Implementation
         {
             if (httpContextAccessor?.HttpContext?.Request?.Headers["Authorization"].Any() == true)
             {
+                SignedInCustomerName = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "FullName")?.Value;
                 SignedInCustomerEmail = httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Email")?.Value;
                 SignedInCustomerId = Convert.ToInt32(httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "UserId")?.Value);
             }

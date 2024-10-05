@@ -4,6 +4,7 @@ using Assessment.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assessment.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241005082003_permissionExtention")]
+    partial class permissionExtention
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,10 +123,6 @@ namespace Assessment.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("BookReservationNotifications");
                 });
@@ -305,17 +304,17 @@ namespace Assessment.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7958),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(453),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7958),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(453),
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7961),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(456),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7961),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(456),
                             Name = "User"
                         });
                 });
@@ -354,207 +353,198 @@ namespace Assessment.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7450),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(50),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7450),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(51),
                             PermissionId = (short)1,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7453),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(53),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7453),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(53),
                             PermissionId = (short)2,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 3,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7455),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(55),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7455),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(55),
                             PermissionId = (short)3,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 4,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7457),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(57),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7457),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(57),
                             PermissionId = (short)4,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 5,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7459),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(58),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7459),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(59),
                             PermissionId = (short)5,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 10,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7462),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(61),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7462),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(62),
                             PermissionId = (short)6,
                             RoleId = (short)1
                         },
                         new
                         {
-                            Id = 23,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7464),
-                            IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7464),
-                            PermissionId = (short)8,
-                            RoleId = (short)1
-                        },
-                        new
-                        {
                             Id = 11,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7465),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(63),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7466),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(63),
                             PermissionId = (short)9,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 12,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7467),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(64),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7467),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(65),
                             PermissionId = (short)10,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 13,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7470),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(66),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7470),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(66),
                             PermissionId = (short)11,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 14,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7471),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(69),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7472),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(69),
                             PermissionId = (short)12,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 15,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7473),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(70),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7473),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(71),
                             PermissionId = (short)13,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 16,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7475),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(72),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7475),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(72),
                             PermissionId = (short)14,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 17,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7476),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(73),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7477),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(74),
                             PermissionId = (short)15,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 18,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7478),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(75),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7478),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(75),
                             PermissionId = (short)16,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 19,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7480),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(77),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7480),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(77),
                             PermissionId = (short)17,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 20,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7481),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(78),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7482),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(78),
                             PermissionId = (short)18,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 21,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7484),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(80),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7484),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(80),
                             PermissionId = (short)19,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 22,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7485),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(82),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7486),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(82),
                             PermissionId = (short)20,
                             RoleId = (short)1
                         },
                         new
                         {
                             Id = 6,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7487),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(83),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7487),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(84),
                             PermissionId = (short)2,
                             RoleId = (short)2
                         },
                         new
                         {
                             Id = 7,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7488),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(85),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7489),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(85),
                             PermissionId = (short)3,
                             RoleId = (short)2
                         },
                         new
                         {
                             Id = 8,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7490),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(86),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7490),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(87),
                             PermissionId = (short)7,
                             RoleId = (short)2
                         },
                         new
                         {
                             Id = 9,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7492),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(88),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(7492),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(88),
                             PermissionId = (short)5,
                             RoleId = (short)2
                         });
@@ -578,9 +568,6 @@ namespace Assessment.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsBanned")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
@@ -653,50 +640,12 @@ namespace Assessment.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(9060),
+                            DateCreated = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(1496),
                             IsDeleted = false,
-                            LastModified = new DateTime(2024, 10, 5, 12, 28, 5, 373, DateTimeKind.Utc).AddTicks(9061),
+                            LastModified = new DateTime(2024, 10, 5, 8, 20, 3, 309, DateTimeKind.Utc).AddTicks(1497),
                             RoleId = (short)1,
                             UserId = 2
                         });
-                });
-
-            modelBuilder.Entity("Assessment.Domain.Entities.BookReservation", b =>
-                {
-                    b.HasOne("Assessment.Domain.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Assessment.Domain.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Assessment.Domain.Entities.BookReservationNotification", b =>
-                {
-                    b.HasOne("Assessment.Domain.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Assessment.Domain.Entities.User", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 ﻿using Assessment.Infrastructure.Context;
 using Assessment.Infrastructure.Repositories.Interfaces;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,10 @@ namespace Assessment.Infrastructure.Repositories.Implementation
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
+        async Task<IQueryable<T>> IGenericQueryRepository<T>.RawQuery(string query, params SqlParameter[] parameters)
+        {
+            return _dbContext.Set<T>().FromSqlRaw(query, parameters).AsQueryable();
+        }
         public async Task<IQueryable<T>> GetPaginatedAsync(Expression<Func<T, bool>> predicate)
         {
             return _dbContext.Set<T>().Where(predicate).AsQueryable();
@@ -44,6 +49,21 @@ namespace Assessment.Infrastructure.Repositories.Implementation
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbContext.Set<T>().AnyAsync(predicate);
+        }
+
+        public async Task<IQueryable<T>> GetAllWithIncludeAsync(Expression<Func<T, bool>>? predicate, params string[] includes)
+        {
+            var query = _dbContext.Set<T>().AsQueryable();
+            if (predicate != null) 
+            {
+                query.Where(predicate);
+            }
+            
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+            return query;
         }
     }
 }

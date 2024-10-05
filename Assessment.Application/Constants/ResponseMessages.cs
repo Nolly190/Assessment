@@ -21,6 +21,8 @@ namespace Assessment.Application.Constants
 
         public static string EmailAlreadyExist = "Email already exist.";
         public static string IncorrectUserDetails  = "Incorrect user details provided.";
+        public static string UnblockActiveUser  = "User has been previously unblocked.";
+        public static string BlockActiveUser = "User has been previously blocked.";
         public static string AccountLockedOut  = "Your account has been temporarly locked out. Try again later.";
 
 

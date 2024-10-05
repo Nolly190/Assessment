@@ -7,5 +7,8 @@ namespace Assessment.Application.Interfaces
     {
         Task<Result<LoginViewModel>> Login(LoginRequestViewModel login);
         Task<Result<LoginViewModel>> Register(RegistrationRequestViewModel register);
+        Task<PaginationResult<List<UserViewModel>>> GetUsers(SearchFilter options);
+        Task<Result<UserViewModel>> GetUser(int customerId);
+        Task<Result<int>> BanCustomer(BanUserViewModel model,bool action);
     }
 }

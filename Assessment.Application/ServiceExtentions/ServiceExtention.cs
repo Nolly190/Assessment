@@ -19,6 +19,7 @@ namespace Assessment.Application.ServiceExtentions
             services.AddValidatorsFromAssemblyContaining<BookValidator>();
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IBookService,BookService>();
+            services.AddScoped<IReservationService,ReservationService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
         }
     }

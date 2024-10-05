@@ -5,6 +5,7 @@ using Assessment.Infrastructure.Context;
 using Assessment.PolicyAuthorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
@@ -75,7 +76,16 @@ namespace Assessment.ServiceExtentions
                     }
                 });
             });
+            services.AddRateLimiter(options =>
+            {
+                options.AddFixedWindowLimiter("fixedLimit", x =>
+                {
+                    x.Window = TimeSpan.FromSeconds(1);
+                    x.PermitLimit = 10;
 
+                });
+                options.RejectionStatusCode = 429;
+            });
             services.Configure<AppSettings>(configuration.GetSection("AppSettings"));
             services.AddAuthorization();
             services.AddHttpContextAccessor();

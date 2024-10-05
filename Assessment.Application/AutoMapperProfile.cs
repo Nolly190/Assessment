@@ -24,6 +24,9 @@ namespace Assessment.Application
                 .ForMember(x => x.Description, opt => opt.MapFrom(c => c.ErrorMessage));
 
 
+            CreateMap<User, UserViewModel>();
+            CreateMap<BookReservation, ReservationViewModel>();
+            CreateMap<BookReservationNotification, ReservationNotificationViewModel>();
             CreateMap<BookReservationViewModel, BookReservation>();
             CreateMap<BookCollectionViewModel, BookReservation>();
             CreateMap<BookReservationViewModel, BookReservationNotification>();

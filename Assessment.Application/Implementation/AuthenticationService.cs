@@ -5,6 +5,7 @@ using Assessment.Application.Helpers;
 using Assessment.Application.Interfaces;
 using Assessment.Application.ViewModels;
 using Assessment.Domain.Entities;
+using Assessment.Domain.Enum;
 using Assessment.Infrastructure.Repositories.Interfaces;
 using AutoMapper;
 using FluentValidation;
@@ -16,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -56,6 +58,46 @@ namespace Assessment.Application.Implementation
             _loginValidator = loginValidator;
         }
 
+        public async Task<Result<UserViewModel>> GetUser(int customerId)
+        {
+            var user = await _userQueryRepository.GetAsync(customerId);
+            if (user == null)
+            {
+                return Result<UserViewModel>.Failed(StatusCode.OperationFailed, ResponseMessages.NoRecordFound);
+            }
+            var userResponse = _mapper.Map<UserViewModel>(user);
+            return Result<UserViewModel>.Success(userResponse);
+        }
+        public async Task<PaginationResult<List<UserViewModel>>> GetUsers(SearchFilter options)
+        {
+            var users = await _userQueryRepository.GetPaginatedAsync();
+            users = FilterUsers(users, options);
+            var response = users.ToPagedResponse(options);
+            var usersResponse = _mapper.Map<List<UserViewModel>>(response.Data.ToList());
+            return PaginationResult<List<UserViewModel>>.Success(usersResponse, response.TotalPages, response.TotalCount);
+        }
+        public async Task<Result<int>> BanCustomer(BanUserViewModel model, bool action)
+        {
+            var user = await _userQueryRepository.GetAsync(model.UserId);
+            if (user == null)
+            {
+                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.NoRecordFound);
+            }
+
+            if (!action && !user.IsBanned)
+            {
+                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.UnblockActiveUser);
+            }
+
+            if (action && user.IsBanned)
+            {
+                return Result<int>.Failed(StatusCode.OperationFailed, ResponseMessages.BlockActiveUser);
+            }
+            user.IsBanned = action;
+            return Result<int>.Success(await _userCommandRepository.UpdateAsync(user));
+
+
+        }
         public async Task<Result<LoginViewModel>> Login(LoginRequestViewModel login)
         {
             var validatorResult = await _loginValidator.ValidateAsync(login);
@@ -71,11 +113,10 @@ namespace Assessment.Application.Implementation
                 return Result<LoginViewModel>.Failed(StatusCode.OperationFailed, ResponseMessages.IncorrectUserDetails);
             }
 
-            if (user.LoginFailedCount > _appSettings.LoginFailedAttempt && DateTime.UtcNow < user.LastModified.AddMinutes(_appSettings.LockOutTime))
+            if (user.IsBanned || (user.LoginFailedCount > _appSettings.LoginFailedAttempt && DateTime.UtcNow < user.LastModified.AddMinutes(_appSettings.LockOutTime)))
             {
                 return Result<LoginViewModel>.Failed(StatusCode.OperationFailed, ResponseMessages.AccountLockedOut);
             }
-
 
             var hashedPassword = HashingUtility.HashPassword(login.Password, _appSettings, user.Salt);
 
@@ -103,7 +144,6 @@ namespace Assessment.Application.Implementation
             generateOTP.UserId = user.Id;
             return Result<LoginViewModel>.Success(generateOTP);
         }
-
         public async Task<Result<LoginViewModel>> Register(RegistrationRequestViewModel register)
         {
             var validatorResult = await _registrationValidator.ValidateAsync(register);
@@ -127,7 +167,7 @@ namespace Assessment.Application.Implementation
             var userInRole = await _userInRoleCommandRepository.InsertAndRetrieveIdAsync(new UserInRole
             {
                 RoleId = _appSettings.UserRoleId,
-                UserId= userRecord.Id,
+                UserId = userRecord.Id,
                 DateCreated = DateTime.UtcNow,
                 IsDeleted = false,
             });
@@ -147,7 +187,6 @@ namespace Assessment.Application.Implementation
                 UserId = userRecord.Id,
             });
         }
-
         private LoginViewModel GenerateToken(User user, string[] role, string[] permissions)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JwtSecret));
@@ -181,7 +220,35 @@ namespace Assessment.Application.Implementation
                 UserId = user.Id,
             };
         }
+        private IQueryable<User> FilterUsers(IQueryable<User> query, SearchFilter filter)
+        {
+            if (filter == null)
+            {
+                return query;
+            }
 
+            foreach (var item in filter.SearchParams)
+            {
+                switch (item.Key.ToLower())
+                {
+                    case "name":
+                        query = query.Where(x => x.Name.Contains(item.Value));
+                        break;
+                    case "email":
+                        query = query.Where(x => x.Email.Contains(item.Value));
+                        break;
+                    case "phonenumber":
+                        query = query.Where(x => x.PhoneNumber.StartsWith(item.Value));
+                        break;
+                    case "datecreated":
+                        query = query.Where(x => x.DateCreated.Date == Convert.ToDateTime(item.Value));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return query;
+        }
 
     }
 }

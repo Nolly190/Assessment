@@ -1,4 +1,6 @@
-﻿namespace Assessment.Application.ViewModels
+﻿using Assessment.Domain.Entities;
+
+namespace Assessment.Application.ViewModels
 {
     public class LoginViewModel
     {

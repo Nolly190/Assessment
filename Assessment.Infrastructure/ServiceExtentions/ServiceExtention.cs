@@ -1,4 +1,6 @@
 ﻿using Assessment.Infrastructure.Context;
+using Assessment.Infrastructure.External_Services.Implementation;
+using Assessment.Infrastructure.External_Services.Interface;
 using Assessment.Infrastructure.Repositories.Implementation;
 using Assessment.Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ namespace Assessment.Infrastructure.ServiceExtentions
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DbConnection")));
+            services.AddScoped<INotificationService,NotificationService>();
             services.AddScoped(typeof(IGenericQueryRepository<>), typeof(GenericQueryRepository<>));
             services.AddScoped(typeof(IGenericCommandRepository<>), typeof(GenericCommandRepository<>));
         }

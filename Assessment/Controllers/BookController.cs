@@ -4,6 +4,7 @@ using Assessment.Application.Interfaces;
 using Assessment.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using System.Net;
 
 namespace Assessment.Controllers
@@ -12,6 +13,7 @@ namespace Assessment.Controllers
     [ApiController]
     [Route("api/v{v:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
+    [EnableRateLimiting("fixedLimit")]
     public class BookController : BaseController
     {
         public IBookService _bookService;
@@ -47,14 +49,6 @@ namespace Assessment.Controllers
             return ReturnResponse(await _bookService.SearchBooks(model));
         }
 
-        [Authorize(Policy = "ReserveBook")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<List<BookViewModel>>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<List<BookViewModel>>))]
-        [HttpPost("reserve")]
-        public async Task<IActionResult> ReserveBook([FromBody] BookReservationViewModel model)
-        {
-            return ReturnResponse(await _bookService.ReserveBook(model));
-        }
 
         [Authorize(Policy = "BookReturn")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<List<BookViewModel>>))]
@@ -75,13 +69,6 @@ namespace Assessment.Controllers
             return ReturnResponse(await _bookService.BookCollection(model));
         }
 
-        [Authorize(Policy = "ReservationNotification")]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Result<List<BookViewModel>>))]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest, Type = typeof(Result<List<BookViewModel>>))]
-        [HttpPost("reservation-notification")]
-        public async Task<IActionResult> ReservationNotification([FromBody] BookReservationViewModel model)
-        {
-            return ReturnResponse(await _bookService.ReservationNotification(model));
-        }
+
     }
 }

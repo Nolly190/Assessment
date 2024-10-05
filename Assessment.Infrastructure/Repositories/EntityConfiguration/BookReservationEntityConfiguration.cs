@@ -10,10 +10,12 @@ namespace Assessment.Infrastructure.Repositories.EntityConfiguration
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
-            builder.Property(x=>x.CustomerId).IsRequired();
+            builder.Property(x => x.CustomerId).IsRequired();
             builder.HasIndex(x => x.CustomerId);
             builder.HasIndex(x => x.BookId);
-            builder.Property(x=>x.BookId).IsRequired();
+            builder.Property(x => x.BookId).IsRequired();
+            builder.HasOne(x => x.User).WithMany().HasForeignKey(x=>x.CustomerId);
+            builder.HasOne(x => x.Book).WithMany().HasForeignKey(x => x.BookId);
         }
     }
 }
