@@ -1,0 +1,1157 @@
+{
+	"info": {
+		"_postman_id": "52c1b748-9f3f-4937-bbce-0eca64e05cf8",
+		"name": "Assessment Documentation",
+		"description": "**Library System API Documentation**  \nWelcome to the Library System API documentation! This API provides a comprehensive interface for managing the rental and reservation of books in our library. Whether you're a developer looking to integrate with our system or an administrator wanting to understand our functionalities, this documentation will guide you through the various features and endpoints available.  \n  \n**Overview**  \nThe Library System API is designed to facilitate seamless interactions with our library resources. It comprises three main controllers:  \n  \n**User Controller**: Manage user accounts, including registration, authentication, and user profiles. This controller ensures a secure and personalized experience for all library members and admin.  \n  \n**Books Controller**: Access and manage the library's collection of books. This includes retrieving book details, searching for titles, and updating book information.  \n  \n**Reservation Controller**: Handle the reservation process for books, allowing users to secure a title for future borrowing. This controller ensures that users can reserve books efficiently and stay informed about their availability.  \n  \nBy utilizing these controllers, you can create, read, update, and delete resources as needed, making it easy to integrate our library services into your applications. Dive into the sections below to explore detailed information about each controller, including endpoints, request/response formats, and usage examples.  \n  \nHappy coding!\n\n### **Table of contents:**\n\n> 🪐 Get Started  \n⏱ Rate and usage limits  \n✍️ Example Responses  \n🤔 Need Help? \n  \n\n## 🪐 **Get Started**\n\nSteps to get started with the Library System API:\n\n1. **Authorization**: StartFragmentTo access the Library System API endpoints, you will need a JWT bearer token obtained from the login endpoint. The system utilizes policy-based authorization, allowing administrators to create new roles and assign specific functionalities to them. This flexible approach ensures that users have access only to the resources and actions permitted by their assigned roles, enhancing both security and usability within the library system.EndFragment  \n    \n2. **Access**: Access to any resource depends on your role, You have to elevate the permission on your role to access any new resource. For Test Purposes the Admin account details is as follows.  \n    UserName: Admin@gmail.com  \n    Password: AdminTest@123\n    \n\nFor more details, check out the additional sections below, and click `View Complete Documentation` for the complete documentation. If you have questions about the folder or request, look for the documentation icon for documentation-in-context.\n\n## Rate and usage limits\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute.\n\nIf you exceed either limit, your request will return an HTTP `429 Too Many Requests` status code. If your team is consistently hitting these limits, contact the Admin of the system, and we will work to accommodate you.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n## ✍️ Example Responses\n\nWe have documented many of the possible responses you might encounter using [Examples](https://learning.postman.com/docs/sending-requests/examples/) under each request.\n\n### 🤔 **Need Help?**\n\nThe Bank Services team wants to ensure that your team has everything they need to successfully integrate our services into your applications and services. Don't hesitate to reach out to us on our internal Slack by tagging `@bank-services`.\n\n> Is your team utilizing this API in a use case not represented here? We want to know about it! Add a comment with your suggestions and feedback! \n  \n\nFor ideas on how to use these different requests to accomplish common banking tasks, check out the [Workflows Documentation](https://www.postman.com/templates/53736124-ad4d-4cc9-a57a-f7e83402fbe7/Workflow-Documentation) collection. To design your own custom integration, check out the [Blueprint Documentation](https://www.postman.com/templates/75394e82-fb5d-4421-94cf-8799b1bb4af3/Blueprint-Documentation) collection.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25573096"
+	},
+	"item": [
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = JSON.parse(pm.response.text());\r",
+									"pm.collectionVariables.set('Token', token.data.jwtToken);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"nolwew@gmail.com\",\r\n  \"password\": \"Nonso123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Admin Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"Admin@gmail.com\",\r\n  \"password\": \"AdminTest@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 06:20:35 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"userId\": 2,\n        \"email\": \"admin@gmail.com\",\n        \"jwtToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIyIiwiRW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJGdWxsTmFtZSI6ImFkbWluIiwiUGVybWlzc2lvbnMiOiJbXCJBZGRCb29rXCIsXCJHZXRCb29rXCIsXCJTZWFyY2hCb29rXCIsXCJCb29rUmV0dXJuXCIsXCJSZXNlcnZhdGlvbk5vdGlmaWNhdGlvblwiLFwiQm9va0NvbGxlY3Rpb25cIl0iLCJSb2xlIjoiW1wiQWRtaW5cIl0iLCJqdGkiOiIxOGY3MDQ0Yy02MzA5LTRlZmYtODE5NS0zYWYwOWQ0NjA2NDciLCJleHAiOjE3MjgxOTU2MzUsImlzcyI6Ind3dy5MZW5raWUuY29tIiwiYXVkIjoid3d3LkxlbmtpZS5jb20ifQ.UVZaMqtY5hbBQZXY9w91SxU0ArOXQUe6kL-R8hf8ss8\",\n        \"jwtTokenExpiry\": \"2024-10-06T06:20:35.0036973Z\",\n        \"permissions\": [\n            \"AddBook\",\n            \"GetBook\",\n            \"SearchBook\",\n            \"BookReturn\",\n            \"ReservationNotification\",\n            \"BookCollection\"\n        ]\n    },\n    \"isSuccessful\": true,\n    \"errors\": null,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var token = JSON.parse(pm.response.text());\r",
+									"pm.collectionVariables.set('Token', token.data.jwtToken);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Nonso Udenwani\",\r\n  \"email\": \"nowe@gmail.com\",\r\n  \"phoneNumber\": \"070353322232\",\r\n  \"password\": \"Nonso123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user/registration",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"registration"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Nonso Udenwani\",\r\n  \"email\": \"nolly1902@gmail.com\",\r\n  \"phoneNumber\": \"07030252224\",\r\n  \"password\": \"Nonso123@\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user/registration",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"registration"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 12:56:16 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"userId\": 7,\n        \"email\": \"nolly1902@gmail.com\",\n        \"jwtToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI3IiwiRW1haWwiOiJub2xseTE5MDJAZ21haWwuY29tIiwiRnVsbE5hbWUiOiJOb25zbyBVZGVud2FuaSIsIlBlcm1pc3Npb25zIjoiW1wiR2V0Qm9va1wiLFwiU2VhcmNoQm9va1wiLFwiUmVzZXJ2YXRpb25Ob3RpZmljYXRpb25cIixcIlJlc2VydmVCb29rXCJdIiwiUm9sZSI6IltcIlVzZXJcIl0iLCJqdGkiOiI4OWE5MDRlZi0xYjIyLTRhZDgtYmNmNy1jODYwMGJmNTNlMDciLCJleHAiOjE3MjgyMTkzNzYsImlzcyI6Ind3dy5MZW5raWUuY29tIiwiYXVkIjoid3d3LkxlbmtpZS5jb20ifQ.JZ547PbobG41tt-1Ee21mdYRnYsPOTHs3f4_Fy_ua9k\",\n        \"jwtTokenExpiry\": \"2024-10-06T12:56:16.2336263Z\",\n        \"permissions\": [\n            \"GetBook\",\n            \"SearchBook\",\n            \"ReservationNotification\",\n            \"ReserveBook\"\n        ]\n    },\n    \"isSuccessful\": true,\n    \"errors\": null,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        //\"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"\",\r\n        \"email\":\"\",\r\n        \"name\":\"\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        \"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"\",\r\n        \"email\":\"\",\r\n        \"name\":\"\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 13:10:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"dateCreated\": \"2024-10-05T12:52:55.0780746\",\n            \"email\": \"nolly190@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 6,\n            \"dateCreated\": \"2024-10-05T12:54:49.6207332\",\n            \"email\": \"nolly1901@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 7,\n            \"dateCreated\": \"2024-10-05T12:56:06.8800612\",\n            \"email\": \"nolly1902@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 3,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        \"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"07030252224\",\r\n        \"email\":\"nolly190@gmail.com\",\r\n        \"name\":\"Nonso Udenwani\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        \"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"\",\r\n        \"email\":\"\",\r\n        \"name\":\"\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 13:10:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"dateCreated\": \"2024-10-05T12:52:55.0780746\",\n            \"email\": \"nolly190@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 6,\n            \"dateCreated\": \"2024-10-05T12:54:49.6207332\",\n            \"email\": \"nolly1901@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 7,\n            \"dateCreated\": \"2024-10-05T12:56:06.8800612\",\n            \"email\": \"nolly1902@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 3,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Block User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user/block",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"block"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        \"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"\",\r\n        \"email\":\"\",\r\n        \"name\":\"\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 13:10:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"dateCreated\": \"2024-10-05T12:52:55.0780746\",\n            \"email\": \"nolly190@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 6,\n            \"dateCreated\": \"2024-10-05T12:54:49.6207332\",\n            \"email\": \"nolly1901@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 7,\n            \"dateCreated\": \"2024-10-05T12:56:06.8800612\",\n            \"email\": \"nolly1902@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 3,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Unblock User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/user/unblock",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"unblock"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //Filter Options\r\n        \"datecreated\":\"2024-10-05\",\r\n        \"phonenumber\":\"\",\r\n        \"email\":\"\",\r\n        \"name\":\"\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 13:10:49 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"dateCreated\": \"2024-10-05T12:52:55.0780746\",\n            \"email\": \"nolly190@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 6,\n            \"dateCreated\": \"2024-10-05T12:54:49.6207332\",\n            \"email\": \"nolly1901@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        },\n        {\n            \"id\": 7,\n            \"dateCreated\": \"2024-10-05T12:56:06.8800612\",\n            \"email\": \"nolly1902@gmail.com\",\n            \"name\": \"Nonso Udenwani\",\n            \"phoneNumber\": \"07030252224\",\n            \"customerType\": 0,\n            \"loginFailedCount\": 0\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 3,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				}
+			],
+			"description": "For effective user management, we need to build controls that allow the admin to manage users and view user details. The endpoints in this folder help achieve these objectives:\n\n1. **Get All Users**  \n    This is a **POST** endpoint used to search and filter the users table. It also supports pagination. You can use the following search keywords in the **Search** parameter:\n    \n    - `dateCreated`\n        \n    - `phoneNumber`\n        \n    - `email`\n        \n    - `name`  \n        Pagination can be controlled using the parameters:\n        \n    - `pageSize` (number of users per page)\n        \n    - `pageNumber` (the page to retrieve)\n        \n2. **Get a Single User**  \n    To retrieve details of a specific user, use this endpoint and provide the user's ID.\n    \n3. **Login**  \n    Both admin and normal users can use this endpoint to log in to the application.\n    \n4. **Registration**  \n    New users can register on the platform using this endpoint.\n    \n5. **Block User**  \n    This endpoint is used to block problematic users, preventing them from accessing the platform.\n    \n6. **Unblock User**  \n    This endpoint is used to reactivate blocked users.\n    \n\n**Note:** These endpoints have authorization implemented. An admin can only perform admin duties and cannot execute customer-related actions."
+		},
+		{
+			"name": "Book Management",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/book/search",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"search"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Books",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //filter Options\r\n        \"datecreated\": \"2024-10-03\",\r\n        \"name\": \"man\",\r\n        \"author\": \"George\",\r\n        \"datepublish\": \"1927-10-03\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/book/search",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"book",
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 10:03:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"dateCreated\": \"2024-10-03T04:13:11.934704\",\n            \"lastModified\": \"2024-10-04T07:04:56.847901\",\n            \"status\": \"Free\",\n            \"dateOfReturn\": null,\n            \"name\": \"Richest Man in Babylon\",\n            \"author\": \"George Samuel Clason\\r\\n\",\n            \"datePublished\": \"1927-10-03T04:13:03.511\"\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 1,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Single Book",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/book/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\":\"Harry Potter and the Sorcerer's Stone\",\r\n    \"Author\": \"J.K. Rowling\",\r\n    \"DatePublished\":\"1997-01-01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/book",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Name\":\"Harry Potter and the Sorcerer's Stone\",\r\n    \"Author\": \"J.K. Rowling\",\r\n    \"DatePublished\":\"1997-01-01\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/book",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"book"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 10:08:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": 1,\n    \"isSuccessful\": true,\n    \"errors\": null,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Return Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Book/returned",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Book",
+								"returned"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Collection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": 2,\r\n  \"customerId\": 2,\r\n  \"dateOfReturn\": \"2024-10-05T14:33:35.705Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/book/collection",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"book",
+								"collection"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The Book Controller handles all operations related to books, including adding books, viewing a single book, and searching for books. This controller supports pagination and filtering similar to the User Management documentation. The following endpoints are available:\n\n1. **Get All Books / Search**  \n    This is a **POST** endpoint used to retrieve all books or search for specific ones. It supports pagination and the following search parameters:\n    \n    - `dateCreated`\n        \n    - `datePublished`\n        \n    - `author`\n        \n    - `name`  \n        Pagination can be controlled using the parameters:\n        \n    - `pageSize` (number of books per page)\n        \n    - `pageNumber` (the page to retrieve)\n        \n2. **Get Single Book**  \n    To retrieve details of a specific book, use this endpoint and provide the book's ID.\n    \n3. **Add Book**  \n    This endpoint allows admins to add new books to the collection.\n    \n4. **Return Book**  \n    This endpoint is used to mark a book as returned, updating its status in the system.\n    \n5. **Book Collection**  \n    This endpoint retrieves the entire collection of books managed by the system.\n    \n\n**Note:** These endpoints have authorization implemented to ensure that only authorized users (e.g., admins) can perform certain actions, such as adding or modifying book records."
+		},
+		{
+			"name": "Reservation Management",
+			"item": [
+				{
+					"name": "Get all Reservations",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //filter Options\r\n        \"datecreated\": \"2024-10-04\",\r\n        \"customername\": \"admin\"\r\n       // \"isreturned\": \"true\",\r\n        //\"expecteddateofreturn\": \"2024-10-20\",\r\n       // \"bookName\": \"man\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reservation/reservations",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reservation",
+								"reservations"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Reversations",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //filter Options\r\n        \"datecreated\": \"2024-10-04\",\r\n        \"customername\": \"admin\",\r\n        \"isreturned\": \"true\",\r\n        \"expecteddateofreturn\": \"2024-10-20\",\r\n        \"bookName\": \"man\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/reservation/reservations",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reservation",
+										"reservations"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 08:10:12 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 4,\n            \"dateCreated\": \"2024-10-04T04:51:15.5649435\",\n            \"lastModified\": \"2024-10-04T04:51:15.5649436\",\n            \"bookName\": \"Richest Man in Babylon\",\n            \"bookId\": 1,\n            \"customerName\": \"admin\",\n            \"isReturned\": true,\n            \"expectedDateOfReturn\": \"2024-10-20T04:47:46.647\"\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 1,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Reservation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reservation/9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reservation",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Reservation Notifications",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //filter Options\r\n        // \"datecreated\": \"2024-10-04\",\r\n        // \"customername\": \"admin\",\r\n        //\"IsNotified\": \"false\"\r\n       // \"bookName\": \"man\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reservation/notifications",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reservation",
+								"notifications"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"PageNumber\": 1,\r\n    \"PageSize\": 10,\r\n    \"SearchParams\": {\r\n        //filter Options\r\n        // \"datecreated\": \"2024-10-04\",\r\n        // \"customername\": \"admin\",\r\n        \"IsNotified\": \"false\"\r\n       // \"bookName\": \"man\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/reservation/notifications",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reservation",
+										"notifications"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 08:50:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"dateCreated\": \"2024-10-04T05:34:58.3512947\",\n            \"lastModified\": \"2024-10-04T05:34:58.3512952\",\n            \"bookName\": \"Think and Grow Rich\",\n            \"bookId\": 2,\n            \"customerName\": \"nonso\",\n            \"isNotified\": false\n        }\n    ],\n    \"isSuccessful\": true,\n    \"totalCount\": 1,\n    \"totalPages\": 1,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reserve Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BookId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reservation/reserve",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reservation",
+								"reserve"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successfull Response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"BookId\":2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/reservation/reserve",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"reservation",
+										"reserve"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Oct 2024 12:36:51 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "api-supported-versions",
+									"value": "1.0"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": 1,\n    \"isSuccessful\": true,\n    \"errors\": null,\n    \"responseMessage\": \"Operation Successful\",\n    \"responseCode\": \"00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Book Availablity Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"BookId\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reservation/notification",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reservation",
+								"notification"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The Reservation Controller manages all operations related to reservations, including notifications for booking availability and tracking reservations. The following endpoints are available:\n\n1. **Book Availability Notification** This endpoint allows users to set up notification for a book that is unavailable for collection.\n    \n2. **Get All Reservation Notifications** This is a **POST** endpoint that retrieves all notifications related to reservations on the system . It supports the following search parameters:\n    \n    - _**isNotified**_ (to filter by whether a reservation notification has been sent)\n        \n    - _**dateCreated**_ (to filter by the reservation creation date)\n        \n    - _**customerName**_ (to search for reservations by the customer's name)\n        \n    - _**bookName**_ (to search for reservations by the book's name)\n        \n3. **Get Reservation** To retrieve details of a specific reservation, use this endpoint and provide the reservation ID.\n    \n4. **Get All Reservations** This is a POST endpoint used to retrieve all reservations made in the system. It supports the following search parameters:\n    \n    - _**isReturned**_ (to filter by whether the book has been returned)\n        \n    - **dateCreated** (to filter by the reservation creation date)\n        \n    - _**customerName**_ (to search for reservations by the customer's name)\n        \n    - _**bookName**_ (to search for reservations by the book's name)\n        \n\n**Important Note**: The system will automatically cancel any reservation that lasts more than 24 hours. Users can also set up notifications for books that are currently not available for collection, ensuring they are alerted when the books become available."
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{Token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost:7292"
+		},
+		{
+			"key": "Token",
+			"value": ""
+		}
+	]
+}
